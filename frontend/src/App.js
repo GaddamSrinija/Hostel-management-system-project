@@ -17,30 +17,61 @@ import UserEditView from "./screens/userEditView";
 const App = () => {
   return (
     <Router>
-      <Header />
-      <main className="py-3">
-        <Container>
-          <Route path="/user/:userId/edit" component={UserEditView} />
-          <Route path="/userList" component={UserListView} />
-          <Route path="/profile" component={ProfileView} />
-          <Route path="/attendance" component={AttendanceView} />
-          <Route path="/analysis" component={AnalysisView} />
-          <Route path="/addStudent" component={AddStudentView} />
-          <Route path="/student/edit/:id" component={AddStudentView} exact />
-          <Route path="/student/:id" component={StudentDetailsView} exact />
-          <Route path="/login" component={LoginView} exact />
-          <Route path="/register" component={RegisterView} exact />
-          <Route path="/search/:keyword" component={HomeView} exact />
-          <Route path="/page/:pageNumber" component={HomeView} exact />
-          <Route
-            path="/search/:keyword/page/:pageNumber"
-            component={HomeView}
-            exact
-          />
-          <Route path="/" component={HomeView} exact />
-        </Container>
-      </main>
-      <Footer />
+      {/* Login and Register are full-screen — no header/footer */}
+      <Route path="/login" component={LoginView} exact />
+      <Route path="/register" component={RegisterView} exact />
+
+      {/* All other routes get the standard shell */}
+      <Route>
+        {({ location }) =>
+          location.pathname !== "/login" &&
+          location.pathname !== "/register" && (
+            <>
+              <Header />
+              <main className="py-3">
+                <Container>
+                  <Route
+                    path="/user/:userId/edit"
+                    component={UserEditView}
+                  />
+                  <Route path="/userList" component={UserListView} />
+                  <Route path="/profile" component={ProfileView} />
+                  <Route path="/attendance" component={AttendanceView} />
+                  <Route path="/analysis" component={AnalysisView} />
+                  <Route path="/addStudent" component={AddStudentView} />
+                  <Route
+                    path="/student/edit/:id"
+                    component={AddStudentView}
+                    exact
+                  />
+                  <Route
+                    path="/student/:id"
+                    component={StudentDetailsView}
+                    exact
+                  />
+                  <Route
+                    path="/search/:keyword"
+                    component={HomeView}
+                    exact
+                  />
+                  <Route
+                    path="/page/:pageNumber"
+                    component={HomeView}
+                    exact
+                  />
+                  <Route
+                    path="/search/:keyword/page/:pageNumber"
+                    component={HomeView}
+                    exact
+                  />
+                  <Route path="/" component={HomeView} exact />
+                </Container>
+              </main>
+              <Footer />
+            </>
+          )
+        }
+      </Route>
     </Router>
   );
 };
