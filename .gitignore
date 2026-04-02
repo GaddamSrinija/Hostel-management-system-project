@@ -1,0 +1,4 @@
+
+# production
+/frontend/node_modules
+/frontend/.eslintcache
