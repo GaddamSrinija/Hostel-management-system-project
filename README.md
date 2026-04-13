@@ -85,7 +85,7 @@ Ensure the following tools are installed:
 
 ## 📥 Clone the Repository
 
-`git clone https://github.com/shyamsundar-v3/Hostel-Management.git`  
+`git clone https://github.com/GaddamSrinija/Hostel-management-system-project.git`  
 `cd Hostel-Management`
 
 ---
@@ -265,5 +265,6 @@ Contributions are welcome!
 
 ## 👩‍💻 Authors
 
+- Shyam Sundar 
 - Gaddam Srinija  
-- Shyam Sundar  
+ 
