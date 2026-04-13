@@ -1,23 +1,17 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+
 import userRoutes from "./routes/userRoutes.js";
 import studentRoutes from "./routes/studentRoutes.js";
 import attendanceRoutes from "./routes/attendanceRoutes.js";
-import path from "path";
-import { fileURLToPath } from "url";
-import morgan from "morgan";
 
 import connectDB from "./config/mongoDBConfig.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
-// 🔥 Fix for ES modules (__dirname)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// 🔥 Load .env from ROOT folder
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
-
-// 🔍 Debug (you can remove later)
 console.log("ENV CHECK:", process.env.MONGO_URI);
 
 // ✅ Connect DB
@@ -33,23 +27,23 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Routes
+
+app.use("/uploads", express.static("uploads"));
+
+// ✅ CORS — 
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  credentials: true,
+}));
+
+// ✅ Routes — prefixed with /api
 app.use("/users", userRoutes);
 app.use("/student", studentRoutes);
 app.use("/attendance", attendanceRoutes);
 
-// Static frontend
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running....");
-  });
-}
+app.get("/", (req, res) => {
+  res.send("API is running....");
+});
 
 // Error handling
 app.use(notFound);
