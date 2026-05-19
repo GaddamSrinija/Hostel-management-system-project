@@ -8,7 +8,7 @@ The system allows administrators to manage students, track attendance, and maint
 ## 🚀 Live Demo
 
 - 🌐 Frontend: https://residential-hostelmanagement.netlify.app  
-- ⚙️ Backend API: https://residential-hostel-management.onrender.com  
+- ⚙️ Backend API: https://hostel-management-1-xwlr.onrender.com
 
 ---
 
